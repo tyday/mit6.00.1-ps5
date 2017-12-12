@@ -1,6 +1,6 @@
 # 6.0001/6.00 Problem Set 5 - RSS Feed Filter
-# Name:
-# Collaborators:
+# Name: Ty Day
+# Collaborators: NONE
 # Time:
 
 import feedparser
