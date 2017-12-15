@@ -94,20 +94,14 @@ class Trigger(object):
 # TODO: PhraseTrigger
 class PhraseTrigger(Trigger):
     def  __init__(self,phrase):
-        self.phrase = phrase
+        self.phrase = phrase.lower()
     def is_phrase_in(self, test_string):
         test_string = test_string
-        phrase_stripped = ""
-        test_string_stripped = ""
-        for i in self.phrase:
-            if i in string.ascii_letters or i in " ":
-                phrase_stripped += i
-            phrase_stripped = phrase_stripped.lower()
-        for i in test_string:
-            if i in string.ascii_letters or i in " ":
-                test_string_stripped += i
-            test_string_stripped = test_string_stripped.lower()
-        return phrase_stripped in test_string_stripped
+        for p in string.punctuation:
+            test_string = test_string.replace(p, " ")
+        test_string = test_string.lower()
+        test_string = " ".join(test_string.split())
+        return self.phrase in test_string
 
         
 # Problem 3
