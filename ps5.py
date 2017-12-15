@@ -279,7 +279,7 @@ def main_thread(master):
 
             print("Polling . . .", end=' ')
             # Get stories from Google's Top Stories RSS news feed
-            stories = process("http://news.google.com/news?output=rss")
+            stories = process("https://news.google.coms/rss/headlines?gl=US&ned=us&hl=en")#("http://news.google.com/news?output=rss")
 
             # Get stories from Yahoo's Top Stories RSS news feed
             stories.extend(process("http://news.yahoo.com/rss/topstories"))
