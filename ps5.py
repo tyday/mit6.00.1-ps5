@@ -133,13 +133,29 @@ class DescriptionTrigger(PhraseTrigger):
 #        Convert time from string to a datetime before saving it as an attribute.
 class TimeTrigger(Trigger):
     def __init__(self, time_string):
-        self.tt_Date = datetime.strptime(time_string, '%d %b %Y %H:%M:%S')
+        temp_date = datetime.strptime(time_string, '%d %b %Y %H:%M:%S')
+        temp_date = temp_date.replace(tzinfo=pytz.timezone("EST"))
+        self.tt_Date = temp_date
 
 
 
 # Problem 6
 # TODO: BeforeTrigger and AfterTrigger
+class BeforeTrigger(TimeTrigger):
+    def evaluate(self, story):
+        comp_date = story.get_pubdate()
+        if comp_date.tzinfo is None:
+            comp_date = comp_date.replace(tzinfo=pytz.timezone("EST"))
+        if self.tt_Date > comp_date:
+            return True
 
+class AfterTrigger(TimeTrigger):
+    def evaluate(self, story):
+        comp_date = story.get_pubdate()
+        if comp_date.tzinfo is None:
+            comp_date = comp_date.replace(tzinfo=pytz.timezone("EST"))
+        if self.tt_Date < comp_date:
+            return True
 
 # COMPOSITE TRIGGERS
 
