@@ -11,6 +11,7 @@ from project_util import translate_html
 from mtTkinter import *
 from datetime import datetime
 import pytz
+import re
 
 
 #-----------------------------------------------------------------------
@@ -96,12 +97,18 @@ class PhraseTrigger(Trigger):
     def  __init__(self,phrase):
         self.phrase = phrase.lower()
     def is_phrase_in(self, test_string):
+        text = '\\b' + self.phrase + '\\b'
+        re_text = re.compile(text)
         test_string = test_string
         for p in string.punctuation:
             test_string = test_string.replace(p, " ")
         test_string = test_string.lower()
         test_string = " ".join(test_string.split())
-        return self.phrase in test_string
+        if re_text.search(test_string):
+            return True
+        else:
+            return False
+        #return self.phrase in test_string
 
         
 # Problem 3
