@@ -108,7 +108,6 @@ class PhraseTrigger(Trigger):
             return True
         else:
             return False
-        #return self.phrase in test_string
 
         
 # Problem 3
@@ -121,6 +120,9 @@ class TitleTrigger(PhraseTrigger):
 
 # Problem 4
 # TODO: DescriptionTrigger
+class DescriptionTrigger(PhraseTrigger):
+    def evaluate(self, phrase):
+        return self.is_phrase_in(phrase.get_description())
 
 # TIME TRIGGERS
 
