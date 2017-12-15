@@ -232,8 +232,35 @@ def read_trigger_config(filename):
     # TODO: Problem 11
     # line is the list of lines that you need to parse and for which you need
     # to build triggers
+    return_list = []
+    tempstring = ''
+    for line in lines:
+        templine = line.split(',')
+        trig_desc = templine[1]
+        if trig_desc == 'TITLE':
+            tempstring = line[0] + ' = ' + 'TitleTrigger(' + templine[2] + ')'
+            return_list.append (tempstring)
+        elif trig_desc == 'DESCRIPTION':
+            tempstring = line[0] + ' + ' + 'DescriptionTrigger(' + templine[2] + ')'
+            return_list.append(tempstring)
+        elif trig_desc == 'BEFORE':
+            tempstring = line[0] + ' = ' + 'BeforeTrigger(' + templine[2] + ')'
+            return_list.append(tempstring)
+        elif trig_desc == 'AFTER':
+            tempstring = line[0] + ' = ' + 'AfterTrigger(' + templine[2] + ')'
+            return_list.append(tempstring)
+        elif trig_desc == 'NOT':
+            tempstring = line[0] + ' = ' + 'NotTrigger(' + templine[2] + ')'
+            return_list.append(tempstring)
+        elif trig_desc == 'AND':
+            tempstring = line[0] + ' = ' + 'AndTrigger(' + templine[2] + ', ' + templine[3] + ')'
+            return_list.append(tempstring)
+        elif trig_desc == 'OR':
+            tempstring = line[0] + ' = ' + 'OrTrigger(' + templine[2] + ', ' + templine[3]+ ')'
+            return_list.append(tempstring)
 
-    print(lines) # for now, print it so you see what it contains!
+    print(return_list) # for now, print it so you see what it contains!
+    return return_list
 
 
 
@@ -251,7 +278,7 @@ def main_thread(master):
 
         # Problem 11
         # TODO: After implementing read_trigger_config, uncomment this line 
-        # triggerlist = read_trigger_config('triggers.txt')
+        triggerlist = read_trigger_config('triggers.txt')
         
         # HELPER CODE - you don't need to understand this!
         # Draws the popup window that displays the filtered stories
