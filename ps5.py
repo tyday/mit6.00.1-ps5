@@ -239,25 +239,25 @@ def read_trigger_config(filename):
         trig_desc = templine[1]
         if trig_desc == 'TITLE':
             tempstring = line[0] + ' = ' + 'TitleTrigger(' + templine[2] + ')'
-            return_list.append (tempstring)
+            return_list.append (TitleTrigger(templine[2]))
         elif trig_desc == 'DESCRIPTION':
-            tempstring = line[0] + ' + ' + 'DescriptionTrigger(' + templine[2] + ')'
-            return_list.append(tempstring)
+            tempstring = line[0] + ' = ' + 'DescriptionTrigger(' + templine[2] + ')'
+            return_list.append(DescriptionTrigger(templine[2]))
         elif trig_desc == 'BEFORE':
             tempstring = line[0] + ' = ' + 'BeforeTrigger(' + templine[2] + ')'
-            return_list.append(tempstring)
+            return_list.append(BeforeTrigger(templine[2]))
         elif trig_desc == 'AFTER':
             tempstring = line[0] + ' = ' + 'AfterTrigger(' + templine[2] + ')'
-            return_list.append(tempstring)
+            return_list.append(AfterTrigger(templine[2]))
         elif trig_desc == 'NOT':
             tempstring = line[0] + ' = ' + 'NotTrigger(' + templine[2] + ')'
-            return_list.append(tempstring)
+            return_list.append(NotTrigger(templine[2]))
         elif trig_desc == 'AND':
             tempstring = line[0] + ' = ' + 'AndTrigger(' + templine[2] + ', ' + templine[3] + ')'
-            return_list.append(tempstring)
+            return_list.append(AndTrigger(templine[2],templine[3]))
         elif trig_desc == 'OR':
             tempstring = line[0] + ' = ' + 'OrTrigger(' + templine[2] + ', ' + templine[3]+ ')'
-            return_list.append(tempstring)
+            return_list.append(OrTrigger(templine[2], templine[3]))
 
     print(return_list) # for now, print it so you see what it contains!
     return return_list
@@ -271,10 +271,10 @@ def main_thread(master):
     # to what is currently in the news
     try:
         t1 = TitleTrigger("election")
-        t2 = DescriptionTrigger("Trump")
-        t3 = DescriptionTrigger("Moore")
+        t2 = DescriptionTrigger("trump")
+        t3 = DescriptionTrigger("clinton")
         t4 = AndTrigger(t2, t3)
-        triggerlist = [t1, t4]
+        #triggerlist = [t1, t4]
 
         # Problem 11
         # TODO: After implementing read_trigger_config, uncomment this line 
