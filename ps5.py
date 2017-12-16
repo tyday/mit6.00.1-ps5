@@ -318,8 +318,11 @@ def main_thread(master):
 
             print("Polling . . .", end=' ')
             # Get stories from Google's Top Stories RSS news feed
-            stories = process("https://news.google.coms/rss/headlines?gl=US&ned=us&hl=en")#("http://news.google.com/news?output=rss")
-
+            stories = process("http://news.google.coms/rss/headlines?gl=US&ned=us&hl=en")#("http://news.google.com/news?output=rss")
+            stories.extend(process("http://news.google.coms/rss/headlines/section/topic/WORLD?ned=us&hl=en&gl=US"))
+            #other feeds
+            stories.extend(process("http://feeds.reuters.com/reuters/USVideoWorldNews"))
+            stories.extend(process("http://rss.nytimes.com/services/xml/rss/nyt/World.xml"))
             # Get stories from Yahoo's Top Stories RSS news feed
             stories.extend(process("http://news.yahoo.com/rss/topstories"))
 

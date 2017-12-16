@@ -3,13 +3,13 @@
 // stories!
 
 // title trigger named t1
-t1,TITLE,election
+t1,TITLE,syria
 
 // description trigger named t2
-t2,DESCRIPTION,Trump
+t2,DESCRIPTION,California
 
 // description trigger named t3
-t3,DESCRIPTION,Clinton
+t3,DESCRIPTION,Navy
 
 // after trigger named t4
 t4,AFTER,3 Oct 2016 17:00:10
@@ -22,3 +22,6 @@ t6,AND,t1,t4
 
 // the trigger list contains t1 and t4
 ADD,t5,t6
+
+t7,TITLE,Tillerson
+ADD,t7
