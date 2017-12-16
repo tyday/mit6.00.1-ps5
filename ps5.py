@@ -232,39 +232,46 @@ def read_trigger_config(filename):
     # TODO: Problem 11
     # line is the list of lines that you need to parse and for which you need
     # to build triggers
+    return_dict = {}
     return_list = []
     tempstring = ''
     for line in lines:
         templine = line.split(',')
+        dic_key = templine[0]#:line[0:2]
         trig_desc = templine[1]
         if trig_desc == 'TITLE':
-            tempstring = line[0] + ' = ' + 'TitleTrigger(' + templine[2] + ')'
-            return_list.append (TitleTrigger(templine[2]))
+            #tempstring = line[0:1] + ' = ' + 'TitleTrigger(' + templine[2] + ')'
+            return_dict[dic_key] = TitleTrigger(templine[2])
+            #return_list.append(return_dict[dic_key])
         elif trig_desc == 'DESCRIPTION':
-            tempstring = line[0] + ' = ' + 'DescriptionTrigger(' + templine[2] + ')'
-            return_list.append(DescriptionTrigger(templine[2]))
+            #tempstring = line[0] + ' = ' + 'DescriptionTrigger(' + templine[2] + ')'
+            return_dict[dic_key] = DescriptionTrigger(templine[2])
         elif trig_desc == 'BEFORE':
-            tempstring = line[0] + ' = ' + 'BeforeTrigger(' + templine[2] + ')'
-            return_list.append(BeforeTrigger(templine[2]))
+            #tempstring = line[0] + ' = ' + 'BeforeTrigger(' + templine[2] + ')'
+            return_dict[dic_key] = BeforeTrigger(templine[2])
         elif trig_desc == 'AFTER':
-            tempstring = line[0] + ' = ' + 'AfterTrigger(' + templine[2] + ')'
-            return_list.append(AfterTrigger(templine[2]))
+            #tempstring = line[0] + ' = ' + 'AfterTrigger(' + templine[2] + ')'
+            return_dict[dic_key] = AfterTrigger(templine[2])
         elif trig_desc == 'NOT':
-            tempstring = line[0] + ' = ' + 'NotTrigger(' + templine[2] + ')'
-            return_list.append(NotTrigger(templine[2]))
+            #tempstring = line[0] + ' = ' + 'NotTrigger(' + templine[2] + ')'
+            return_dict[dic_key] = NotTrigger(templine[2])
         elif trig_desc == 'AND':
-            tempstring = line[0] + ' = ' + 'AndTrigger(' + templine[2] + ', ' + templine[3] + ')'
-            return_list.append(AndTrigger(templine[2],templine[3]))
+            #tempstring = line[0] + ' = ' + 'AndTrigger(' + templine[2] + ', ' + templine[3] + ')'
+            return_dict[dic_key] = AndTrigger(return_dict[templine[2]], return_dict[templine[3]])
         elif trig_desc == 'OR':
-            tempstring = line[0] + ' = ' + 'OrTrigger(' + templine[2] + ', ' + templine[3]+ ')'
-            return_list.append(OrTrigger(templine[2], templine[3]))
+            #tempstring = line[0] + ' = ' + 'OrTrigger(' + templine[2] + ', ' + templine[3]+ ')'
+            return_dict[dic_key] = OrTrigger(return_dict[templine[2]], return_dict[templine[3]])
+        elif templine[0] =='ADD':
+            for elem in line.split(','):
+                if elem in return_dict:
+                    return_list.append(return_dict[elem])
 
     print(return_list) # for now, print it so you see what it contains!
     return return_list
 
 
 
-SLEEPTIME = 120 #seconds -- how often we poll
+SLEEPTIME = 20 #seconds -- how often we poll
 
 def main_thread(master):
     # A sample trigger list - you might need to change the phrases to correspond
